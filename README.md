@@ -1,5 +1,22 @@
 # Smart Task Analyzer
 
+A mini intelligent task-prioritization system built with **Django + Vanilla JavaScript**.  
+It analyzes urgency, importance, effort, and dependencies to calculate a priority score and recommend the top tasks.
+
+
+## 📸 Screenshot
+
+![App Screenshot](frontend\static\Images\image.png)
+---
+
+## 🚀 Quick Start (Local)
+
+1. Create project folder `task-analyzer` and place files accordingly.
+
+2. Create virtual environment:
+
+```bash
+
 ## Quick start (local)
 1. Create project folder `task-analyzer` and place files accordingly.
 2. Create venv:
@@ -13,6 +30,7 @@ venv\Scripts\activate
 source venv/bin/activate
 
 pip install -r requirements.txt        # or pip install django
+
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
@@ -27,17 +45,55 @@ python manage.py runserver
 
 # file strecture
 task-analyzer/
-├── backend/                  # django project
+├── manage.py
+├── requirements.txt
+├── backend/
+│   ├── __init__.py
 │   ├── settings.py
-│   └── urls.py
+│   ├── urls.py
+│   └── wsgi.py
 ├── tasks/
-│   └── views.py              # API views already created
-├── frontend/                 # add this into project root
+│   ├── __init__.py
+│   ├── migrations/
+│   │   └── 0001_initial.py
+│   ├── models.py
+│   ├── scoring.py
+│   ├── urls.py
+│   └── views.py
+├── frontend/
 │   ├── static/
 │   │   ├── css/
 │   │   │   └── styles.css
-│   │   └── js/
-│   │       └── script.js
+│   │   ├── js/
+│   │   │   └── script.js
+│   │   └── favicon.ico
 │   └── templates/
 │       └── index.html
+└── README.md
 
+# 🌐 API Endpoints
+| Method   | Endpoint              | Description                                      |
+| -------- | --------------------- | ------------------------------------------------ |
+| **POST** | `/api/tasks/analyze/` | Returns all tasks with computed scores           |
+| **POST** | `/api/tasks/suggest/` | Returns top 3 recommended tasks with explanation |
+
+
+#🧠 How the Scoring Algorithm Works
+
+Each task receives a score based on:
+✔️ Urgency
+Overdue → +100
+Due in ≤ 3 days → +50
+
+✔️ Importance
+Weighted heavily (importance × 5)
+
+✔️ Effort (Quick Wins)
+< 2 hours → +10 bonus
+
+✔️ Dependencies
+Dependent tasks get penalty
+Independent tasks rank higher
+
+✔️ Done flag
+Completed tasks fall automatically to bottom
