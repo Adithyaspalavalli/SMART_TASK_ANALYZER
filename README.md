@@ -6,7 +6,7 @@ It analyzes urgency, importance, effort, and dependencies to calculate a priorit
 
 ## 📸 Screenshot
 
-![App Screenshot](frontend\static\Images\image.png)
+![App Screenshot](task-analyzer\frontend\static\Images\image.png)
 ---
 
 ## 🚀 Quick Start (Local)
